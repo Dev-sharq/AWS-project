@@ -1,2 +1,2 @@
-# AWS-project
+# AWS-projects
 AWS projects for demonstration.
