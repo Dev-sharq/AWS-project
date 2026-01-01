@@ -2,166 +2,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AWS Project Demo — Static Site</title>
-  <meta name="description" content="A simple static HTML/CSS/JS site to demo an AWS project architecture and features." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AWS S3 Hosting</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f8fafc;
+      color: #333;
+    }
+    h1 {
+      font-size: 2rem;
+      color: #ff9900; /* AWS orange */
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <div class="brand">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS Logo" />
-        <span>AWS Project Demo</span>
-      </div>
-      <nav class="nav">
-        <a href="#overview">Overview</a>
-        <a href="#architecture">Architecture</a>
-        <a href="#features">Features</a>
-        <a href="#deploy">Deploy</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="container hero-inner">
-      <h1>Serverless Web App on AWS</h1>
-      <p>A minimal static site that showcases an example AWS architecture using <strong>Amazon S3</strong>, <strong>CloudFront</strong>, <strong>API Gateway</strong>, and <strong>Lambda</strong>.</p>
-      <div class="cta-group">
-        <a class="btn primary" href="#architecture">View Architecture</a>
-        <a class="btn" href="#deploy">Deploy in Minutes</a>
-      </div>
-    </div>
-  </section>
-
-  <main class="container">
-    <section id="overview" class="card">
-      <h2>Overview</h2>
-      <p>This demo represents a typical serverless pattern: a static frontend hosted on S3, cached globally via CloudFront, interacting with a secure API behind API Gateway and AWS Lambda, with DynamoDB for persistence and Amazon Cognito for auth (optional).</p>
-      <ul class="pill-list">
-        <li>S3 Static Website Hosting</li>
-        <li>CloudFront CDN</li>
-        <li>API Gateway + Lambda</li>
-        <li>DynamoDB</li>
-        <li>Cognito (optional)</li>
-        <li>IAM + CloudWatch</li>
-      </ul>
-    </section>
-
-    <section id="architecture" class="card">
-      <h2>Architecture</h2>
-      <p>The diagram below shows the flow from client to backend services.</p>
-      <div class="diagram">
-        <!-- Simple inline SVG architecture diagram -->
-        <svg viewBox="0 0 920 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AWS architecture diagram">
-          <style>
-            .box{fill:#fff;stroke:#d1d5db;stroke-width:2;rx:12}
-            .title{font: 700 14px Inter; fill:#111827}
-            .sub{font: 400 12px Inter; fill:#374151}
-            .edge{stroke:#6b7280; stroke-width:2; marker-end:url(#arrow)}
-          </style>
-          <defs>
-            <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="#6b7280" />
-            </marker>
-          </defs>
-
-          <!-- Client -->
-          <rect x="40" y="40" width="160" height="80" class="box" />
-          <text x="60" y="70" class="title">Client (Browser)</text>
-          <text x="60" y="92" class="sub">HTML/CSS/JS</text>
-
-          <!-- CloudFront -->
-          <rect x="260" y="40" width="180" height="80" class="box" />
-          <text x="280" y="70" class="title">Amazon CloudFront</text>
-          <text x="280" y="92" class="sub">Global CDN & TLS</text>
-
-          <!-- S3 -->
-          <rect x="500" y="40" width="160" height="80" class="box" />
-          <text x="520" y="70" class="title">Amazon S3</text>
-          <text x="520" y="92" class="sub">Static Website</text>
-
-          <!-- API Gateway -->
-          <rect x="260" y="180" width="180" height="80" class="box" />
-          <text x="280" y="210" class="title">Amazon API Gateway</text>
-          <text x="280" y="232" class="sub">REST/HTTP API</text>
-
-          <!-- Lambda -->
-          <rect x="500" y="180" width="160" height="80" class="box" />
-          <text x="520" y="210" class="title">AWS Lambda</text>
-          <text x="520" y="232" class="sub">Serverless Compute</text>
-
-          <!-- DynamoDB -->
-          <rect x="720" y="180" width="160" height="80" class="box" />
-          <text x="740" y="210" class="title">Amazon DynamoDB</text>
-          <text x="740" y="232" class="sub">NoSQL Database</text>
-
-          <!-- Edges -->
-          <line x1="200" y1="80" x2="260" y2="80" class="edge" />
-          <line x1="440" y1="80" x2="500" y2="80" class="edge" />
-          <line x1="350" y1="120" x2="350" y2="180" class="edge" />
-          <line x1="440" y1="220" x2="500" y2="220" class="edge" />
-          <line x1="660" y1="220" x2="720" y2="220" class="edge" />
-        </svg>
-      </div>
-      <details class="note">
-        <summary>Why this pattern?</summary>
-        <p>It provides scalability, global performance, and a pay-per-use backend. Static assets are served at low cost via S3+CloudFront, while dynamic requests scale via Lambda/APIGW.</p>
-      </details>
-    </section>
-
-    <section id="features" class="card">
-      <h2>Demo Features</h2>
-      <div class="grid">
-        <div class="feature">
-          <h3>Latency Test</h3>
-          <p>Measures approximate round-trip time to a demo API endpoint.</p>
-          <button id="pingBtn" class="btn small">Run Ping</button>
-          <p id="pingResult" class="mono"></p>
-        </div>
-        <div class="feature">
-          <h3>Public API Call</h3>
-          <p>Fetches a sample JSON from a public API (or your API Gateway URL).</p>
-          <button id="fetchBtn" class="btn small">Fetch Sample</button>
-          <pre id="fetchResult" class="mono"></pre>
-        </div>
-        <div class="feature">
-          <h3>Dark Mode</h3>
-          <p>Toggle a user-preference for dark/light theme.</p>
-          <button id="themeBtn" class="btn small">Toggle Theme</button>
-        </div>
-      </div>
-    </section>
-
-    <section id="deploy" class="card">
-      <h2>Deploy to S3 + CloudFront</h2>
-      <ol class="steps">
-        <li>Create an S3 bucket (e.g., <code>my-aws-demo-site</code>) and enable static website hosting.</li>
-        <li>Upload <code>index.html</code>, <code>styles.css</code>, and <code>script.js</code> to the bucket.</li>
-        <li>Set bucket policy to allow public read for objects (or use CloudFront OAI/Origin Access Control for private buckets).</li>
-        <li>Create a CloudFront distribution with the S3 bucket as the origin. Enable TLS and caching for <code>/*.css</code>, <code>/*.js</code>, and images.</li>
-        <li>(Optional) Point your domain to CloudFront via Route 53 and request an ACM certificate.</li>
-      </ol>
-      <p class="note">Replace the <code>API_BASE</code> in <code>script.js</code> with your API Gateway endpoint when you have one.</p>
-    </section>
-
-    <section id="contact" class="card">
-      <h2>Contact & Credits</h2>
-      <p>Built by <strong>Sharique Qureshi</strong> as an AWS demo. Reach out for improvements or integrations.</p>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>© <span id="year"></span> AWS Project Demo • Static Site</p>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
+  <h1>This page is hosted on AWS S3.</h1>
 </body>
 </html>
+
